@@ -16,4 +16,4 @@ def test_division():
     assert server.division(10, 5) == 2
 
 def test_division():
-    assert server.division(8, 0) == 0
+    assert server.division(8, 0) == "cannot divide by zero"
