@@ -1,0 +1,20 @@
+image: python:latest
+
+include:
+    - template: Security/SAST.gitlab-ci.yml
+    - template: Security/Secret-Detection.gitlab-ci.yml
+
+variables:
+    SAST_EXCLUDED_PATHS: unit_tests.py
+
+stages:
+    #- build
+    - test
+
+unitTest:
+    stage: test
+    before_script:
+        - pip install flask
+        - pip install pytest
+    script:
+        - py.test unit_tests.py
