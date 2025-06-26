@@ -29,7 +29,7 @@ buildPackage:
         - ls | grep -v calcyoulater2 | xargs mv -t calcyoulater2
         - mkdir calcyoulater2pkg
         - mv calcyoulater2/ calcyoulaterpkg
-        - cd calcyoulaterpkg && cd calcyoulater
+        - cd calcyoulaterpkg && cd calcyoulater2
         - mv server.py __init__.py
         - mv -t ../ setup.py MANIFEST.in
         - cd ..
