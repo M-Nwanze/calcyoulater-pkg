@@ -10,6 +10,7 @@ image: python:latest
 stages:
     #- build
     - test
+    - package
 
 .unitTest:
     stage: test
@@ -18,3 +19,21 @@ stages:
         - pip install pytest
     script:
         - py.test unit_tests.py
+
+buildPackage:
+    stage: package
+    before_script:
+        - pip install twine
+    script:
+        - mkdir calcyoulater2
+        - ls | grep -v calcyoulater2 | xargs mv -t calcyoulater2
+        - mkdir calcyoulater2pkg
+        - mv calcyoulater2/ calcyoulaterpkg
+        - cd calcyoulaterpkg && cd calcyoulater
+        - mv server.py __init__.py
+        - mv -t ../ setup.py MANIFEST.in
+        - cd ..
+        - python setup.py sdist bdist_wheel
+          - >
+            TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token
+            python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*
