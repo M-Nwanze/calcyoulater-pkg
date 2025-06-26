@@ -33,6 +33,7 @@ buildPackage:
         - mv server.py __init__.py
         - mv -t ../ setup.py MANIFEST.in
         - cd ..
+        - pip install setuptools wheel
         - python setup.py sdist bdist_wheel
           - >
             TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token
