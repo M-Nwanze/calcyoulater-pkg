@@ -35,7 +35,12 @@ stages:
         - mv -t ../ setup.py MANIFEST.in
         - cd ..
         - pip install setuptools wheel
+        - python setup.py check --metadata --strict
         - python setup.py sdist bdist_wheel
+        - ls -lh dist/
+
+        - curl -I ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi || true
+        
         - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*
 
 buildContainer:
