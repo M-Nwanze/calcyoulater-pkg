@@ -40,11 +40,11 @@ stages:
 
 buildContainer:
     stage: build
-    image: docker:19.03.12
+    image: docker:20.10.24
     variables:
         IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     services:
-        - docker:19.03.12-dind
+        - docker:20.10.24-dind
     before_script:
         - docker pull curlimages/curl
         - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
