@@ -54,6 +54,6 @@ buildContainer:
         - docker run --interactive -p 5000:5000 --name flask-test $IMAGE_TAG &
         - sleep 10
         - docker ps
-        - container_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress}}'flask-test)
+        - container_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' flask-test)
         - container_ip_port="${container_ip}:5000"
         - docker run --rm curlimages/curl -L -v $container_ip_port
