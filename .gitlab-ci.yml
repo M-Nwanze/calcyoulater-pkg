@@ -11,6 +11,7 @@ stages:
     #- build
     - test
     - package
+    - build
 
 .unitTest:
     stage: test
@@ -20,7 +21,7 @@ stages:
     script:
         - py.test unit_tests.py
 
-buildPackage:
+.buildPackage:
     stage: package
     before_script:
         - pip install twine
@@ -36,3 +37,23 @@ buildPackage:
         - pip install setuptools wheel
         - python setup.py sdist bdist_wheel
         - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*
+
+buildContainer:
+    stage: build
+    image: docker:19.03.12
+    variables:
+        IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    services:
+        - docker:19.03.12-dind
+    before_script:
+        - docker pull curlimages/curl
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    script:
+        - docker build --build-arg PAT_NAME=$PAT_NAME --build-arg PAT_VALUE=$PAT_VALUE -t $IMAGE_TAG .
+        - docker image ls
+        - docker run --interactive -p 5000:5000 --name flask-test $IMAGE_TAG &
+        - sleep 10
+        - docker ps
+        - container_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress})'flask-test)
+        - container_ip_port="${container_ip}:5000"
+        - docker run --rm curlimages/curl -L -v $container_ip_port
