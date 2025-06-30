@@ -62,4 +62,4 @@ buildContainer:
         - container_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' flask-test)
         - container_ip_port="${container_ip}:5000"
         - docker run --rm curlimages/curl -L -v $container_ip_port
-        #UPDATED
+        #UPDATED AGAIN
