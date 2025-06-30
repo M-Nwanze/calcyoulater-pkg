@@ -17,9 +17,5 @@ dockerize_package:
     - export PACKAGE_VERSION=$(grep -m1 version setup.py | sed "s/.*version=['\"]\([^'\"]*\)['\"].*/\1/")
   script:
     - echo "📦 Building Docker image for version $PACKAGE_VERSION"
-    - docker build \
-        --build-arg PAT_NAME=__token__ \
-        --build-arg PAT_VALUE=$TWINE_PASSWORD \
-        --build-arg PACKAGE_VERSION=$PACKAGE_VERSION \
-        -t $CI_REGISTRY_IMAGE:$PACKAGE_VERSION .
+    - docker build --build-arg PAT_NAME=__token__ --build-arg PAT_VALUE=$TWINE_PASSWORD --build-arg PACKAGE_VERSION=$PACKAGE_VERSION -t $CI_REGISTRY_IMAGE:$PACKAGE_VERSION .
     - docker push $CI_REGISTRY_IMAGE:$PACKAGE_VERSION
