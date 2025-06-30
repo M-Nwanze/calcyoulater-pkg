@@ -1,10 +1,11 @@
-FROM python:3
+FROM python:3.11-slim
 
 ARG PAT_NAME=__token__
 ARG PAT_VALUE
 
 # Install package from GitLab Package Registry
-RUN pip install calcyoulater2 \
+ARG PACKAGE_VERSION
+RUN pip install --no-cache-dir calcyoulater2==${PACKAGE_VERSION} \
     --index-url https://${PAT_NAME}:${PAT_VALUE}@gitlab.com/api/v4/projects/71140362/packages/pypi/simple
 
 ENV FLASK_APP=calcyoulater2
