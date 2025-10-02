@@ -20,10 +20,9 @@ pip install calcyoulater2
 
 Run with Docker:
 ```bash
-```
-
 docker build -t calcyoulater .
 docker run -p 5000:5000 calcyoulater
+```
 
 ## Development
 
