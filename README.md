@@ -1,5 +1,7 @@
 # calcyoulater
 
+[![PyPI Version](https://img.shields.io/pypi/v/calcyoulater2)](https://pypi.org/project/calcyoulater2/)   
+
 A Flask-based calculator web app with Docker, CI/CD, and PyPI packaging.
 
 ## Features
@@ -73,5 +75,10 @@ It's math, but make it fashion.
 
 Published on:
 - PyPI: [calcyoulater2 v2.0.0](https://pypi.org/project/calcyoulater2/)
-- GitLab Package Registry: [v2.0.0](https://gitlab.com/mnwanze/calcyoulater-complet-pkg-2/-/packages/41343038) 
+- GitLab Package Registry: [v2.0.0](https://gitlab.com/mnwanze/calcyoulater-complet-pkg-2/-/packages/41343038)
+
+  ## 📝 Notes
+- This is a **learning project** to demonstrate CI/CD, packaging, and Docker.
+- Originally built with **GitLab CI/CD**; now hosted on GitHub for portfolio visibility.
+- Not actively maintained — but fully functional.   
 
